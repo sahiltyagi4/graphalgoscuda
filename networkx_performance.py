@@ -1,6 +1,5 @@
 import networkx as nx
 import time, logging
-import cugraph as cx
 import random
 
 def erdos_renyi(n=10000, m=50000, seed=1234):
@@ -16,38 +15,30 @@ def powerlaw_cluster(n=10000, m=5, p=0.8, seed=1234):
     return nx.powerlaw_cluster_graph(n, m, p, seed)
 
 def soc_livejournal(f='/home/styagi/soc-LiveJournal1.txt'):
-    G = nx.read_adjlist(f)
+    return nx.read_adjlist(f)
 
 def connected_components(G, device='cpu'):
     strt_time = time.time()
     if device == 'cpu':
         nx.connected_components(G)
-    else:
-        cx.connected_components(G)
     return float(time.time() - strt_time)
 
 def triangles(G, device='cpu'):
     strt_time = time.time()
     if device == 'cpu':
         nx.triangles(G)
-    else:
-        cx.triangles(G)
     return float(time.time() - strt_time)
 
 def pagerank(G, device='cpu'):
     strt_time = time.time()
     if device == 'cpu':
         nx.pagerank(G)
-    else:
-        cx.pagerank(G)
     return float(time.time() - strt_time)
 
 def betweenness_centrality(G, device='cpu'):
     strt_time = time.time()
     if device == 'cpu':
         nx.betweenness_centrality(G)
-    else:
-        cx.betweenness_centrality(G)
     return float(time.time() - strt_time)
 
 
