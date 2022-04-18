@@ -26,12 +26,12 @@ def connected_components(G, device='cpu'):
         cx.connected_components(G)
     return float(time.time() - strt_time)
 
-def clustering(G, device='cpu'):
+def triangles(G, device='cpu'):
     strt_time = time.time()
     if device == 'cpu':
-        nx.clustering(G)
+        nx.triangles(G)
     else:
-        cx.clustering(G)
+        cx.triangles(G)
     return float(time.time() - strt_time)
 
 def pagerank(G, device='cpu'):
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     # logging.info(f'---------------------------------------------')
     t = connected_components(G, device='gpu')
     logging.info(f'erdos-renyi graph connected_components CUDA {t} seconds')
-    t = clustering(G, device='gpu')
+    t = triangles(G, device='gpu')
     logging.info(f'erdos-renyi graph clustering CUDA {t} seconds')
     t = pagerank(G, device='gpu')
     logging.info(f'erdos-renyi graph Pagerank CUDA {t} seconds')
@@ -92,7 +92,7 @@ if __name__ == '__main__':
     # logging.info(f'---------------------------------------------')
     t = connected_components(G, device='gpu')
     logging.info(f'barasbi-albert graph connected_components CUDA {t} seconds')
-    t = clustering(G, device='gpu')
+    t = triangles(G, device='gpu')
     logging.info(f'barasbi-albert graph clustering CUDA {t} seconds')
     t = pagerank(G, device='gpu')
     logging.info(f'barasbi-albert graph Pagerank CUDA {t} seconds')
@@ -112,7 +112,7 @@ if __name__ == '__main__':
     # logging.info(f'---------------------------------------------')
     t = connected_components(G, device='gpu')
     logging.info(f'watts-strogatz graph connected_components CUDA {t} seconds')
-    t = clustering(G, device='gpu')
+    t = triangles(G, device='gpu')
     logging.info(f'watts-strogatz graph clustering CUDA {t} seconds')
     t = pagerank(G, device='gpu')
     logging.info(f'watts-strogatz graph Pagerank CUDA {t} seconds')
@@ -132,7 +132,7 @@ if __name__ == '__main__':
     # logging.info(f'---------------------------------------------')
     t = connected_components(G, device='gpu')
     logging.info(f'powerlaw-cluster graph connected_components CUDA {t} seconds')
-    t = clustering(G, device='gpu')
+    t = triangles(G, device='gpu')
     logging.info(f'powerlaw-cluster graph clustering CUDA {t} seconds')
     t = pagerank(G, device='gpu')
     logging.info(f'powerlaw-cluster graph Pagerank CUDA {t} seconds')
