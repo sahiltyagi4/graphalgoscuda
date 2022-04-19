@@ -14,7 +14,7 @@ def small_world(n=10000, k=10, p=0.1, seed=1234):
 def powerlaw_cluster(n=10000, m=5, p=0.8, seed=1234):
     return nx.powerlaw_cluster_graph(n, m, p, seed)
 
-def soc_livejournal(f='/home/styagi/soc-LiveJournal1.txt'):
+def real_graph(f='/home/styagi/com-youtube.ungraph.txt'):
     return nx.read_adjlist(f)
 
 def connected_components(G, device='cpu'):
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # logging.info(f'powerlaw-cluster graph Betweenness_centrality CPU {t} seconds')
     # logging.info(f'---------------------------------------------')
 
-    G = soc_livejournal(f='/N/u2/s/styagi/j100/soc-LiveJournal1.txt')
+    G = real_graph(f='/N/u2/s/styagi/j100/soc-com-youtube.ungraph.txt')
     t = connected_components(G)
     logging.info(f'SOC_LiveJournal graph connected_components CPU {t} seconds')
     t = triangles(G)
