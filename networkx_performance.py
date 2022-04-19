@@ -45,10 +45,10 @@ def betweenness_centrality(G, device='cpu'):
 if __name__ == '__main__':
     logging.basicConfig(filename='networkx_cugraph_perf-'+str(random.randint(10, 999))+'.log', level=logging.INFO)
 
-    num_nodes = 1000000
-    num_edges = 5000000
-    # num_nodes = 10
-    # num_edges = 50
+    # num_nodes = 1000000
+    # num_edges = 5000000
+    num_nodes = 100000
+    num_edges = 500000
     numedges_pernode = int(num_edges/num_nodes)
 
     G = erdos_renyi(n=num_nodes, m=num_edges)
