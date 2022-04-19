@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # logging.info(f'powerlaw-cluster graph Betweenness_centrality CPU {t} seconds')
     # logging.info(f'---------------------------------------------')
 
-    G = soc_livejournal()
+    G = soc_livejournal(f='/N/u2/s/styagi/j100/soc-LiveJournal1.txt')
     t = connected_components(G)
     logging.info(f'SOC_LiveJournal graph connected_components CPU {t} seconds')
     t = triangles(G)
