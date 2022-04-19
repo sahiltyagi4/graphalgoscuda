@@ -95,7 +95,7 @@ if __name__ == '__main__':
     # logging.info(f'powerlaw-cluster graph Betweenness_centrality CPU {t} seconds')
     # logging.info(f'---------------------------------------------')
 
-    G = real_graph(f='/N/u2/s/styagi/j100/soc-com-youtube.ungraph.txt')
+    G = real_graph(f='/N/u2/s/styagi/j100/com-youtube.ungraph.txt')
     t = connected_components(G)
     logging.info(f'SOC_LiveJournal graph connected_components CPU {t} seconds')
     t = triangles(G)
