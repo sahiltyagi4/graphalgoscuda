@@ -20,7 +20,7 @@ def soc_livejournal(f='/Users/sahiltyagi/Downloads/soc-LiveJournal1.txt'):
     print(f'n {n} and m {m}')
 
 if __name__ == '__main__':
-    # G = erdos_renyi()
+    G = erdos_renyi(n=10, m=50)
     # G = scale_free()
     # G = small_world()
     # G = powerlaw_cluster()
@@ -33,8 +33,8 @@ if __name__ == '__main__':
     # s1 = time.time()
     # nx.pagerank(G)
     # print(f'Pagerank erdos-renyi {time.time() - s1}')
-    # s1 = time.time()
-    # nx.betweenness_centrality(G)
-    # print(f'Between_centrality erdos-renyi {time.time() - s1}')
+    s1 = time.time()
+    nx.betweenness_centrality(G)
+    print(f'Between_centrality erdos-renyi {time.time() - s1}')
 
-    soc_livejournal()
+    # soc_livejournal()
