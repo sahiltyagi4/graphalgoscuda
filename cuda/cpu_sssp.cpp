@@ -40,10 +40,15 @@ void fix_INDEX_edges(std::vector<int> &V, std::vector<int> &E, int l, int r){
 
 int main(){
     std::vector<int> V, I, E, W;
-    load_data("/home/styagi/rand_1000.gr_W.csv", V);
-    load_data("/home/styagi/rand_1000.gr_W.csv", I);
-    load_data("/home/styagi/rand_1000.gr_W.csv", E);
-    load_data("/home/styagi/rand_1000.gr_W.csv", W);
+    load_data("/home/styagi/USA-road-d.NY.gr_W.csv", V);
+    load_data("/home/styagi/USA-road-d.NY.gr_W.csv", I);
+    load_data("/home/styagi/USA-road-d.NY.gr_W.csv", E);
+    load_data("/home/styagi/USA-road-d.NY.gr_W.csv", W);
+
+//    load_data("/N/u2/s/styagi/j100/rand_1000.gr_W.csv", V);
+//    load_data("/N/u2/s/styagi/j100/rand_1000.gr_W.csv", I);
+//    load_data("/N/u2/s/styagi/j100/rand_1000.gr_W.csv", E);
+//    load_data("/N/u2/s/styagi/j100/rand_1000.gr_W.csv", W);
 
     std::vector<int> P(V.size(), std::numeric_limits<int>::max());
     std::vector<int> Q(V.size(),-1);
