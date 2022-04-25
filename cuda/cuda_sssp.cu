@@ -56,7 +56,7 @@ __global__ void update_INDEX_edges(int N, int *d_in_V, int *d_in_E, int l, int r
         while (l <= r) {
             int m = l + (r - l) / 2;
             if (d_in_V[m] == d_in_E[ix]) {
-                d_in_E[index] = m;
+                d_in_E[ix] = m;
                 break;
             }
             if (d_in_V[m] < d_in_E[ix]) {l = m + 1;} else {r = m - 1;}
@@ -145,7 +145,7 @@ int main(){
     update_INDEX_edges<<<e_blocks, threads_per_block>>>(E.size(), d_in_V, d_in_E, 0, V.size()-1);
 
     for (int i=0; i<V.size(); ++i){
-        reset<<<blocks, threads_per_block>>>(N, MAX_VAL, d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_Di);
+        reset<<<blocks, threads_per_block>>>(N, max_value, d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_Di);
         update_distance<<<blocks, threads_per_block>>>(V.size(), d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_Di);
     }
     update_results<<<blocks, threads_per_block>>>(V.size(), d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_P);
