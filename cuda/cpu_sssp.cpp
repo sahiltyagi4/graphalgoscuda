@@ -21,48 +21,48 @@ void load_data(const char *f, std::vector<int> &vec){
     inputfile.close();
 }
 
-void fix_INDEX_edges(std::vector<int> &A, std::vector<int> &C, int l, int r){
-    for (int index = 0; index < C.size(); index++) {
-        l=0; r=A.size()-1;
+void fix_INDEX_edges(std::vector<int> &V, std::vector<int> &E, int l, int r){
+    for (int index = 0; index < E.size(); index++) {
+        l=0; r=V.size()-1;
         while (l <= r) {
             int m = l + (r - l) / 2;
-            if (A[m] == C[index]) {
-                C[index] = m;
+            if (V[m] == E[index]) {
+                E[index] = m;
                 break;
             }
-            if (A[m] < C[index]) {l = m + 1;} else {r = m - 1;}
+            if (V[m] < E[index]) {l = m + 1;} else {r = m - 1;}
         }
     }
 }
 
 int main(){
-    std::vector<int> A, B, C, D;
-    load_data("/home/styagi/rand_1000.gr_V.csv", A);
-    load_data("/home/styagi/rand_1000.gr_I.csv", B);
-    load_data("/home/styagi/rand_1000.gr_E.csv", C);
-    load_data("/home/styagi/rand_1000.gr_W.csv", D);
+    std::vector<int> V, I, E, W;
+    load_data("/home/styagi/rand_1000.gr_V.csv", V);
+    load_data("/home/styagi/rand_1000.gr_I.csv", I);
+    load_data("/home/styagi/rand_1000.gr_E.csv", E);
+    load_data("/home/styagi/rand_1000.gr_W.csv", W);
 
-    std::vector<int> P(A.size(), std::numeric_limits<int>::max());
-    std::vector<int> Q(A.size(), -1);
+    std::vector<int> P(V.size(), std::numeric_limits<int>::max());
+    std::vector<int> Q(V.size(), -1);
 
-    fix_INDEX_edges(A, C, 0, A.size()-1);
+    fix_INDEX_edges(V, E, 0, V.size()-1);
 
     P[0] = 0;
     Q[0] = 0;
 
     auto start_time = high_resolution_clock::now();
-    for (int i = 0; i < A.size(); ++i) {
-        for (int j = 0; j < B.size()-1; ++j) {
+    for (int i = 0; i < V.size(); ++i) {
+        for (int j = 0; j < I.size()-1; ++j) {
             for (int k = 0; k < B[j+1]; ++k) {
                 int p, q, r, dp, dq;
-                p = A[j];
-                q = A[C[k]];
-                r = D[k];
+                p = V[j];
+                q = V[E[k]];
+                r = W[k];
                 dp = P[j];
-                dq = P[C[k]];
+                dq = P[E[k]];
                 if (dp + r < dq){
-                    P[C[k]] = dp + r;
-                    Q[C[k]] = p;
+                    P[E[k]] = dp + r;
+                    Q[E[k]] = p;
                 }
 
             }
