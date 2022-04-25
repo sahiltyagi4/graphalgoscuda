@@ -53,7 +53,7 @@ int main(){
     auto start_time = high_resolution_clock::now();
     for (int i = 0; i < V.size(); ++i) {
         for (int j = 0; j < I.size()-1; ++j) {
-            for (int k = 0; k < B[j+1]; ++k) {
+            for (int k = 0; k < I[j+1]; ++k) {
                 int p, q, r, dp, dq;
                 p = V[j];
                 q = V[E[k]];
