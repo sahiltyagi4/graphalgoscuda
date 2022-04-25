@@ -94,10 +94,15 @@ __global__ void update_results(int N, int *d_in_V, int *d_in_I, int *d_in_E, int
 
 int main(){
     std::vector<int> V, I, E, W;
-    load_data("/home/styagi/rand_1000.gr_V.csv", V);
-    load_data("/home/styagi/rand_1000.gr_I.csv", I);
-    load_data("/home/styagi/rand_1000.gr_E.csv", E);
-    load_data("/home/styagi/rand_1000.gr_W.csv", W);
+//    load_data("/home/styagi/rand_1000.gr_V.csv", V);
+//    load_data("/home/styagi/rand_1000.gr_I.csv", I);
+//    load_data("/home/styagi/rand_1000.gr_E.csv", E);
+//    load_data("/home/styagi/rand_1000.gr_W.csv", W);
+
+    load_data("/home/styagi/USA-road-d.COL.gr_V.csv", V);
+    load_data("/home/styagi/USA-road-d.COL.gr_I.csv", I);
+    load_data("/home/styagi/USA-road-d.COL.gr_E.csv", E);
+    load_data("/home/styagi/USA-road-d.COL.gr_W.csv", W);
 
     //cudaEvent_t start, stop;
     //cudaEventCreate(&start);
