@@ -55,20 +55,20 @@ void load_data(const char *f, std::vector<int> &vec){
     inputfile.close();
 }
 
-std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str)
-{
-    std::vector<int> result;
-    std::string line;
-    std::getline(str,line);
-
-    std::stringstream lineStream(line);
-    std::string cell;
-
-    while(std::getline(lineStream,cell, ',')){
-        result.push_back(std::stof(cell));
-    }
-    return result;
-}
+//std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str)
+//{
+//    std::vector<int> result;
+//    std::string line;
+//    std::getline(str,line);
+//
+//    std::stringstream lineStream(line);
+//    std::string cell;
+//
+//    while(std::getline(lineStream,cell, ',')){
+//        result.push_back(std::stof(cell));
+//    }
+//    return result;
+//}
 
 __global__ void reset(int N, int MAX_VAL, int *d_in_V, int *d_in_I, int *d_in_E, int *d_in_W, int *d_out_D, int *d_out_Di){
     int ix = threadIdx.x + blockIdx.x * blockDim.x;
