@@ -19,7 +19,10 @@ void load_data(const char *f, std::vector<int> &vec){
     std::ifstream inputfile;
     int n;
     inputfile.open(f);
-    while(inputfile.ignore() && (inputfile >> n)){vec.push_back(n);}
+    while(inputfile.ignore() && (inputfile >> n)){
+        vec.push_back(n);
+    }
+    cout<< "vector size:" << vec.size() << endl;
     inputfile.close();
 }
 
