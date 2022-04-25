@@ -10,42 +10,39 @@
 #include <sstream>
 #include <cuda.h>
 #include <cuda_runtime.h>
-#include <boost/algorithm/string.hpp>
+//#include <boost/algorithm/string.hpp>
 using namespace std;
 using std::cout;
 using std::endl;
 using namespace std::chrono;
 
-class CSVReader{
-    std::string filename;
-    std::string delimiter;
-
-public:
-    CSVReader(std::string filename, std::string delim=','):
-        filename(filename), delimiter(delim)
-    {}
-
-    std::vector<int> parsedata();
-};
-
-std::vector<int> CSVReader::parsedata() {
-    std::ifstream file(filename);
-    std::vector<int> vec;
-
-    std::string line = "";
-    while(getline(file, line)){
-        std::string  v = "";
-        boost::algorithm::split(v, line, boost::is_any_of(delimiter));
-        vec.push_back(std::stof(v));
-    }
-
-//    while(getline(file, line,',')){
+//class CSVReader{
+//    std::string filename;
+//    std::string delimiter;
 //
+//public:
+//    CSVReader(std::string filename, std::string delim=','):
+//        filename(filename), delimiter(delim)
+//    {}
+//
+//    std::vector<int> parsedata();
+//};
+//
+//std::vector<int> CSVReader::parsedata() {
+//    std::ifstream file(filename);
+//    std::vector<int> vec;
+//
+//    std::string line = "";
+//    while(getline(file, line)){
+//        std::string  v = "";
+//        boost::algorithm::split(v, line, boost::is_any_of(delimiter));
+//        vec.push_back(std::stof(v));
 //    }
-    file.close()
-    cout<< "csvreader vector size: " << vec.size() << endl;
-    return vec;
-}
+//
+//    file.close()
+//    cout<< "csvreader vector size: " << vec.size() << endl;
+//    return vec;
+//}
 
 void load_data(const char *f, std::vector<int> &vec){
     std::ifstream inputfile;
