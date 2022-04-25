@@ -51,6 +51,7 @@ int main(){
 
     P[0] = 0;
     Q[0] = 0;
+    cout<< V.size() <<endl;
     cout<< P.size() <<endl;
     cout<< Q.size() <<endl;
 
