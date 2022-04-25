@@ -112,16 +112,6 @@ int main(){
     cout << "number of blocks: " << blocks << " Threads per block: " << threads_per_block << endl;
 
     int *d_in_V, *d_in_I, *d_in_E, *d_in_W, *d_out_D, *d_out_Di, *d_out_P;
-
-//    cudaMallocManaged(d_in_V, V.size() * sizeof(int));
-//    cudaMallocManaged(d_in_I, I.size() * sizeof(int));
-//    cudaMallocManaged(d_in_E, E.size() * sizeof(int));
-//    cudaMallocManaged(d_in_W, W.size() * sizeof(int));
-//
-//    cudaMallocManaged(d_out_D, V.size() * sizeof(int));
-//    cudaMallocManaged(d_out_Di, V.size() * sizeof(int));
-//    cudaMallocManaged(d_out_P, V.size() * sizeof(int));
-
     cudaMalloc((void**) &d_in_V, V.size() *sizeof(int));
     cudaMalloc((void**) &d_in_I, I.size() *sizeof(int));
     cudaMalloc((void**) &d_in_E, E.size() *sizeof(int));

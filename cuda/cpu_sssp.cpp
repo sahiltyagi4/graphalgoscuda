@@ -44,8 +44,10 @@ int main(){
 
     std::vector<int> P(V.size(), std::numeric_limits<int>::max());
     std::vector<int> Q(V.size(), -1);
+    cout<< "loaded vectors from CSV" << endl;
 
     fix_INDEX_edges(V, E, 0, V.size()-1);
+    cout<< "updated index edges..." << endl;
 
     P[0] = 0;
     Q[0] = 0;
