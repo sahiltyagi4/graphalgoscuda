@@ -18,12 +18,12 @@ void load_data(const char *f, std::vector<int> &vec){
     int n;
     inputfile.open(f);
     while(inputfile.ignore() && (inputfile >> n)){vec.push_back(n);}
-    inputfile.close()
+    inputfile.close();
 }
 
 void fix_INDEX_edges(std::vector<int> &A, std::vector<int> &C, int l, int r){
-    for (int index = 0; index < E.size(); index++) {
-        l=0; r=V.size()-1;
+    for (int index = 0; index < C.size(); index++) {
+        l=0; r=A.size()-1;
         while (l <= r) {
             int m = l + (r - l) / 2;
             if (A[m] == C[index]) {
@@ -37,10 +37,10 @@ void fix_INDEX_edges(std::vector<int> &A, std::vector<int> &C, int l, int r){
 
 int main(){
     std::vector<int> A, B, C, D;
-    load_data(("/home/styagi/rand_1000.gr_V.csv").c_str(), A);
-    load_data(("/home/styagi/rand_1000.gr_I.csv").c_str(), B);
-    load_data(("/home/styagi/rand_1000.gr_E.csv").c_str(), C);
-    load_data(("/home/styagi/rand_1000.gr_W.csv").c_str(), D);
+    load_data("/home/styagi/rand_1000.gr_V.csv", A);
+    load_data("/home/styagi/rand_1000.gr_I.csv", B);
+    load_data("/home/styagi/rand_1000.gr_E.csv", C);
+    load_data("/home/styagi/rand_1000.gr_W.csv", D);
 
     std::vector<int> P(A.size(), std::numeric_limits<int>::max());
     std::vector<int> Q(A.size(), -1);
