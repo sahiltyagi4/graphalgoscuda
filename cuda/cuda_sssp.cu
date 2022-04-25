@@ -101,6 +101,7 @@ int main(){
     //cudaEventCreate(&stop);
     auto start_time = high_resolution_clock::now();
     cout<< "loaded vectors from file now copying to gpu and executing sssp" << endl;
+    cout<< V.size() <<endl;
     //cudaEventRecord(start, 0);
 
     int threads_per_block = 128;
@@ -116,6 +117,8 @@ int main(){
     cudaMalloc((void**) &d_in_I, I.size() *sizeof(int));
     cudaMalloc((void**) &d_in_E, E.size() *sizeof(int));
     cudaMalloc((void**) &d_in_W, W.size() *sizeof(int));
+
+    cout<< V.size() <<endl;
 
     cudaMalloc((void**) &d_out_D, V.size() *sizeof(int));
     cudaMalloc((void**) &d_out_Di, V.size() *sizeof(int));
