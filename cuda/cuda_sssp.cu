@@ -51,7 +51,7 @@ void load_data(const char *f, std::vector<int> &vec){
     while(inputfile.ignore() && (inputfile >> n)){
         vec.push_back(n);
     }
-    cout<< "vector size:" << vec.size() << endl;
+    cout<< "vector size:" << vec.size() << "vector file:" << f << endl;
     inputfile.close();
 }
 
