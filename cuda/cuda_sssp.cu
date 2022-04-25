@@ -13,6 +13,7 @@
 using namespace std;
 using std::cout;
 using std::endl;
+using namespace std::chrono;
 
 void load_data(const char *f, std::vector<int> &vec){
     std::ifstream inputfile;
@@ -20,14 +21,6 @@ void load_data(const char *f, std::vector<int> &vec){
     inputfile.open(f);
     while(inputfile.ignore() && (inputfile >> n)){vec.push_back(n);}
     inputfile.close();
-}
-
-void checkCuda(cudaError_t result){
-    if (result != cudaSuccess){
-        printf("cuda error:%s\n", cudeGetErrorString(result));
-        assert(result == cudaSuccess);
-    }
-    return result;
 }
 
 __global__ void reset(int N, int MAX_VAL, int *d_in_V, int *d_in_I, int *d_in_E, int *d_in_W, int *d_out_D, int *d_out_Di){
@@ -103,11 +96,12 @@ int main(){
     load_data("/home/styagi/rand_1000.gr_E.csv", E);
     load_data("/home/styagi/rand_1000.gr_W.csv", W);
 
-    cudaEvent_t start, stop;
-    cudaEventCreate(&start);
-    cudaEventCreate(&stop);
+    //cudaEvent_t start, stop;
+    //cudaEventCreate(&start);
+    //cudaEventCreate(&stop);
+    auto start_time = high_resolution_clock::now();
     cout<< "loaded vectors from file now copying to gpu and executing sssp" << endl;
-    cudaEventRecord(start, 0);
+    //cudaEventRecord(start, 0);
 
     int threads_per_block = 128;
     int max_value = std::numeric_limits<int>::max();
@@ -119,14 +113,28 @@ int main(){
 
     int *d_in_V, *d_in_I, *d_in_E, *d_in_W, *d_out_D, *d_out_Di, *d_out_P;
 
-    cudaMallocManaged(d_in_V, V.size() * sizeof(int));
-    cudaMallocManaged(d_in_I, I.size() * sizeof(int));
-    cudaMallocManaged(d_in_E, E.size() * sizeof(int));
-    cudaMallocManaged(d_in_W, W.size() * sizeof(int));
+//    cudaMallocManaged(d_in_V, V.size() * sizeof(int));
+//    cudaMallocManaged(d_in_I, I.size() * sizeof(int));
+//    cudaMallocManaged(d_in_E, E.size() * sizeof(int));
+//    cudaMallocManaged(d_in_W, W.size() * sizeof(int));
+//
+//    cudaMallocManaged(d_out_D, V.size() * sizeof(int));
+//    cudaMallocManaged(d_out_Di, V.size() * sizeof(int));
+//    cudaMallocManaged(d_out_P, V.size() * sizeof(int));
 
-    cudaMallocManaged(d_out_D, V.size() * sizeof(int));
-    cudaMallocManaged(d_out_Di, V.size() * sizeof(int));
-    cudaMallocManaged(d_out_P, V.size() * sizeof(int));
+    cudaMalloc((void**) &d_in_V, V.size() *sizeof(int));
+    cudaMalloc((void**) &d_in_I, I.size() *sizeof(int));
+    cudaMalloc((void**) &d_in_E, E.size() *sizeof(int));
+    cudaMalloc((void**) &d_in_W, W.size() *sizeof(int));
+
+    cudaMalloc((void**) &d_out_D, V.size() *sizeof(int));
+    cudaMalloc((void**) &d_out_Di, V.size() *sizeof(int));
+    cudaMalloc((void**) &d_out_P, V.size() *sizeof(int));
+
+    cudaMemcpy(d_in_V, V.data(), V.size() *sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_in_I, I.data(), I.size() *sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_in_E, E.data(), E.size() *sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_in_W, W.data(), W.size() *sizeof(int), cudaMemcpyHostToDevice);
 
     int init_blocks = (V.size() + threads_per_block -1) / threads_per_block;
     initialize<<<init_blocks, threads_per_block>>>(V.size(), d_out_D, max_value, true, 0, 0);
@@ -134,7 +142,7 @@ int main(){
     initialize<<<init_blocks, threads_per_block>>>(V.size(), d_out_P, max_value, true, 0, 0);
 
     int e_blocks = (E.size() + threads_per_block -1) / threads_per_block;
-    update_INDEX_edges<<<e_blocks, threads_per_block>>>(E.size(), d_in_V, d_in_E, 0, V.size()-1)
+    update_INDEX_edges<<<e_blocks, threads_per_block>>>(E.size(), d_in_V, d_in_E, 0, V.size()-1);
 
     for (int i=0; i<V.size(); ++i){
         reset<<<blocks, threads_per_block>>>(N, MAX_VAL, d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_Di);
@@ -142,12 +150,15 @@ int main(){
     }
     update_results<<<blocks, threads_per_block>>>(V.size(), d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_P);
 
-    cudaEventRecord(stop, 0);
-    checkCuda(cudaEventSynchronization(stop));
+    //cudaEventRecord(stop, 0);
+    //cudaEventSynchronization(stop);
     cout << "finished executing sssp on cuda..." << endl;
-    checkCuda(cudaDeviceSynchronize());
-    float compute_time;
-    checkCuda(cudaEventElapsedTime(&compute_time, start, stop));
+    cudaDeviceSynchronize();
+    //float compute_time;
+    //cudaEventElapsedTime(&compute_time, start, stop);
+    auto end_time = high_resolution_clock::now();
+    auto exec_time = duration_cast<microseconds>(end_time - start_time);
+    cout << exec_time.count() << endl;
 
     cudaFree(d_in_V);
     cudaFree(d_in_I);
