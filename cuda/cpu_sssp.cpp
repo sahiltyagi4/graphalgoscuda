@@ -48,6 +48,7 @@ int main(){
 
     fix_INDEX_edges(V, E, 0, V.size()-1);
     cout<< "updated index edges..." << endl;
+    cout<< V.size() <<endl;
 
     P[0] = 0;
     Q[0] = 0;
