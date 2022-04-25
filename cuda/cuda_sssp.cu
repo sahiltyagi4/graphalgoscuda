@@ -38,6 +38,10 @@ std::vector<int> CSVReader::parsedata() {
         boost::algorithm::split(v, line, boost::is_any_of(delimiter));
         vec.push_back(std::stof(v));
     }
+
+//    while(getline(file, line,',')){
+//
+//    }
     file.close()
     cout<< "csvreader vector size: " << vec.size() << endl;
     return vec;
@@ -54,10 +58,19 @@ void load_data(const char *f, std::vector<int> &vec){
     inputfile.close();
 }
 
-void parsedata(const char *f, std::vector<int> &vec){
-    std::ifstream inputfile(f);
-    std::int val = 0;
-    while
+std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str)
+{
+    std::vector<int> result;
+    std::string line;
+    std::getline(str,line);
+
+    std::stringstream lineStream(line);
+    std::string cell;
+
+    while(std::getline(lineStream,cell, ',')){
+        result.push_back(std::stof(cell));
+    }
+    return result;
 }
 
 __global__ void reset(int N, int MAX_VAL, int *d_in_V, int *d_in_I, int *d_in_E, int *d_in_W, int *d_out_D, int *d_out_Di){
@@ -127,25 +140,25 @@ __global__ void update_results(int N, int *d_in_V, int *d_in_I, int *d_in_E, int
 }
 
 int main(){
-    //std::vector<int> V, I, E, W;
-//    load_data("/home/styagi/rand_1000.gr_V.csv", V);
-//    load_data("/home/styagi/rand_1000.gr_I.csv", I);
-//    load_data("/home/styagi/rand_1000.gr_E.csv", E);
-//    load_data("/home/styagi/rand_1000.gr_W.csv", W);
+    std::vector<int> V, I, E, W;
+    load_data("/home/styagi/data/rand_1000.gr_V.csv", V);
+    load_data("/home/styagi/data/rand_1000.gr_I.csv", I);
+    load_data("/home/styagi/data/rand_1000.gr_E.csv", E);
+    load_data("/home/styagi/data/rand_1000.gr_W.csv", W);
 
 //    load_data("/home/styagi/data/USA-road-d.NY.gr_V.csv", V);
 //    load_data("/home/styagi/data/USA-road-d.NY.gr_I.csv", I);
 //    load_data("/home/styagi/data/USA-road-d.NY.gr_E.csv", E);
 //    load_data("/home/styagi/data/USA-road-d.NY.gr_W.csv", W);
 
-    CSVReader reader("/home/styagi/data/rand_1000.gr_V.csv");
-    std::vector<int> V = reader.parsedata();
-    CSVReader reader("/home/styagi/data/rand_1000.gr_I.csv");
-    std::vector<int> I = reader.parsedata();
-    CSVReader reader("/home/styagi/data/rand_1000.gr_E.csv");
-    std::vector<int> E = reader.parsedata();
-    CSVReader reader("/home/styagi/data/rand_1000.gr_W.csv");
-    std::vector<int> W = reader.parsedata();
+//    CSVReader reader("/home/styagi/data/rand_1000.gr_V.csv");
+//    std::vector<int> V = reader.parsedata();
+//    CSVReader reader("/home/styagi/data/rand_1000.gr_I.csv");
+//    std::vector<int> I = reader.parsedata();
+//    CSVReader reader("/home/styagi/data/rand_1000.gr_E.csv");
+//    std::vector<int> E = reader.parsedata();
+//    CSVReader reader("/home/styagi/data/rand_1000.gr_W.csv");
+//    std::vector<int> W = reader.parsedata();
 
     //cudaEvent_t start, stop;
     //cudaEventCreate(&start);
