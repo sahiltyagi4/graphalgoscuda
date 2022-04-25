@@ -51,6 +51,8 @@ int main(){
 
     P[0] = 0;
     Q[0] = 0;
+    cout<< P.size() <<endl;
+    cout<< Q.size() <<endl;
 
     auto start_time = high_resolution_clock::now();
     for (int i = 0; i < V.size(); i++) {
