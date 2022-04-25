@@ -99,10 +99,10 @@ int main(){
 //    load_data("/home/styagi/rand_1000.gr_E.csv", E);
 //    load_data("/home/styagi/rand_1000.gr_W.csv", W);
 
-    load_data("/home/styagi/USA-road-d.COL.gr_V.csv", V);
-    load_data("/home/styagi/USA-road-d.COL.gr_I.csv", I);
-    load_data("/home/styagi/USA-road-d.COL.gr_E.csv", E);
-    load_data("/home/styagi/USA-road-d.COL.gr_W.csv", W);
+    load_data("/home/styagi/data/USA-road-d.NY.gr_V.csv", V);
+    load_data("/home/styagi/data/USA-road-d.NY.gr_I.csv", I);
+    load_data("/home/styagi/data/USA-road-d.NY.gr_E.csv", E);
+    load_data("/home/styagi/data/USA-road-d.NY.gr_W.csv", W);
 
     //cudaEvent_t start, stop;
     //cudaEventCreate(&start);
