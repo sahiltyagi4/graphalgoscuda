@@ -14,12 +14,12 @@ using namespace std;
 using std::cout;
 using std::endl;
 
-void load_data(const chat *f, std::vector<int> &vec){
+void load_data(const char *f, std::vector<int> &vec){
     std::ifstream inputfile;
     int n;
     inputfile.open(f);
     while(inputfile.ignore() && (inputfile >> n)){vec.push_back(n);}
-    inputfile.close()
+    inputfile.close();
 }
 
 void checkCuda(cudaError_t result){
@@ -98,10 +98,10 @@ __global__ void update_results(int N, int *d_in_V, int *d_in_I, int *d_in_E, int
 
 int main(){
     std::vector<int> V, I, E, W;
-    load_data(("/home/styagi/rand_1000.gr_V.csv").c_str(), V);
-    load_data(("/home/styagi/rand_1000.gr_I.csv").c_str(), I);
-    load_data(("/home/styagi/rand_1000.gr_E.csv").c_str(), E);
-    load_data(("/home/styagi/rand_1000.gr_W.csv").c_str(), W);
+    load_data("/home/styagi/rand_1000.gr_V.csv", V);
+    load_data("/home/styagi/rand_1000.gr_I.csv", I);
+    load_data("/home/styagi/rand_1000.gr_E.csv", E);
+    load_data("/home/styagi/rand_1000.gr_W.csv", W);
 
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
