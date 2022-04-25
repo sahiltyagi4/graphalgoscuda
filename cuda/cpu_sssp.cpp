@@ -13,7 +13,7 @@ using std::cout;
 using std::endl;
 using namespace std::chrono;
 
-void load_data(const chat *f, std::vector<int> &vec){
+void load_data(const char *f, std::vector<int> &vec){
     std::ifstream inputfile;
     int n;
     inputfile.open(f);
