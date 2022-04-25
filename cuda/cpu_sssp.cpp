@@ -17,7 +17,10 @@ void load_data(const char *f, std::vector<int> &vec){
     std::ifstream inputfile;
     int n;
     inputfile.open(f);
-    while(inputfile.ignore() && (inputfile >> n)){vec.push_back(n);}
+    while(inputfile.ignore() && (inputfile >> n)){
+        vec.push_back(n);
+    }
+    cout << "vector size: " << vec.size() << endl;
     inputfile.close();
 }
 
@@ -37,9 +40,9 @@ void fix_INDEX_edges(std::vector<int> &V, std::vector<int> &E, int l, int r){
 
 int main(){
     std::vector<int> V, I, E, W;
-    load_data("/home/styagi/rand_1000.gr_V.csv", V);
-    load_data("/home/styagi/rand_1000.gr_I.csv", I);
-    load_data("/home/styagi/rand_1000.gr_E.csv", E);
+    load_data("/home/styagi/rand_1000.gr_W.csv", V);
+    load_data("/home/styagi/rand_1000.gr_W.csv", I);
+    load_data("/home/styagi/rand_1000.gr_W.csv", E);
     load_data("/home/styagi/rand_1000.gr_W.csv", W);
 
     std::vector<int> P(V.size(), std::numeric_limits<int>::max());
