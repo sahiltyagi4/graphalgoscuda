@@ -10,10 +10,38 @@
 #include <sstream>
 #include <cuda.h>
 #include <cuda_runtime.h>
+#include <boost/algorithm/string.hpp>
 using namespace std;
 using std::cout;
 using std::endl;
 using namespace std::chrono;
+
+class CSVReader{
+    std::string filename;
+    std::string delimiter;
+
+public:
+    CSVReader(std::string filename, std::string delim=','):
+        filename(filename), delimiter(delim)
+    {}
+
+    std::vector<int> parsedata();
+};
+
+std::vector<int> CSVReader::parsedata() {
+    std::ifstream file(filename);
+    std::vector<int> vec;
+
+    std::string line = "";
+    while(getline(file, line)){
+        std::string  v = "";
+        boost::algorithm::split(v, line, boost::is_any_of(delimiter));
+        vec.push_back(std::stof(v));
+    }
+    file.close()
+    cout<< "csvreader vector size: " << vec.size() << endl;
+    return vec;
+}
 
 void load_data(const char *f, std::vector<int> &vec){
     std::ifstream inputfile;
@@ -24,6 +52,12 @@ void load_data(const char *f, std::vector<int> &vec){
     }
     cout<< "vector size:" << vec.size() << endl;
     inputfile.close();
+}
+
+void parsedata(const char *f, std::vector<int> &vec){
+    std::ifstream inputfile(f);
+    std::int val = 0;
+    while
 }
 
 __global__ void reset(int N, int MAX_VAL, int *d_in_V, int *d_in_I, int *d_in_E, int *d_in_W, int *d_out_D, int *d_out_Di){
@@ -93,16 +127,25 @@ __global__ void update_results(int N, int *d_in_V, int *d_in_I, int *d_in_E, int
 }
 
 int main(){
-    std::vector<int> V, I, E, W;
+    //std::vector<int> V, I, E, W;
 //    load_data("/home/styagi/rand_1000.gr_V.csv", V);
 //    load_data("/home/styagi/rand_1000.gr_I.csv", I);
 //    load_data("/home/styagi/rand_1000.gr_E.csv", E);
 //    load_data("/home/styagi/rand_1000.gr_W.csv", W);
 
-    load_data("/home/styagi/data/USA-road-d.NY.gr_V.csv", V);
-    load_data("/home/styagi/data/USA-road-d.NY.gr_I.csv", I);
-    load_data("/home/styagi/data/USA-road-d.NY.gr_E.csv", E);
-    load_data("/home/styagi/data/USA-road-d.NY.gr_W.csv", W);
+//    load_data("/home/styagi/data/USA-road-d.NY.gr_V.csv", V);
+//    load_data("/home/styagi/data/USA-road-d.NY.gr_I.csv", I);
+//    load_data("/home/styagi/data/USA-road-d.NY.gr_E.csv", E);
+//    load_data("/home/styagi/data/USA-road-d.NY.gr_W.csv", W);
+
+    CSVReader reader("/home/styagi/data/rand_1000.gr_V.csv");
+    std::vector<int> V = reader.parsedata();
+    CSVReader reader("/home/styagi/data/rand_1000.gr_I.csv");
+    std::vector<int> I = reader.parsedata();
+    CSVReader reader("/home/styagi/data/rand_1000.gr_E.csv");
+    std::vector<int> E = reader.parsedata();
+    CSVReader reader("/home/styagi/data/rand_1000.gr_W.csv");
+    std::vector<int> W = reader.parsedata();
 
     //cudaEvent_t start, stop;
     //cudaEventCreate(&start);
