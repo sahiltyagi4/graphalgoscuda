@@ -31,7 +31,7 @@ __global__ void initialize(int N, int *p, int val, bool src, int source, int sou
     int stride = gridDim.x * blockDim.x;
     for (int i=ix; i<N; i+= stride){
         p[i] = val;
-        if(sourceDifferent){
+        if(src){
             if(index == source) {
                 p[i] = sourceVal;
             }
