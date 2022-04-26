@@ -59,13 +59,13 @@ if __name__ == '__main__':
     # G = real_graph()
     G = dblp_graph()
     t = connected_components(G, device='gpu')
-    logging.info(f'SOC_LiveJournal graph connected_components CUDA {t} seconds')
+    logging.info(f'DBLP graph connected_components CUDA {t} seconds')
     t = triangles(G, device='gpu')
-    logging.info(f'SOC_LiveJournal graph clustering CUDA {t} seconds')
+    logging.info(f'DBLP graph clustering CUDA {t} seconds')
     t = pagerank(G, device='gpu')
-    logging.info(f'SOC_LiveJournal graph Pagerank CUDA {t} seconds')
+    logging.info(f'DBLP graph Pagerank CUDA {t} seconds')
     t = betweenness_centrality(G, device='gpu')
-    logging.info(f'SOC_LiveJournal graph Betweenness_centrality CUDA {t} seconds')
+    logging.info(f'DBLP graph Betweenness_centrality CUDA {t} seconds')
     logging.info('################################################')
 
 
