@@ -32,7 +32,7 @@ __global__ void initialize(int N, int *p, int val, bool src, int source, int sou
     for (int i=ix; i<N; i+= stride){
         p[i] = val;
         if(src){
-            if(index == source) {
+            if(i == source) {
                 p[i] = sourceVal;
             }
         }
@@ -81,7 +81,7 @@ __global__ void update_INDEX_edgesGridStride(int N, int *d_in_V, int *d_in_E, in
         while (left <= right) {
             int m = left + (right - left) / 2;
             if (d_in_V[m] == d_in_E[i]) {
-                d_in_E[index] = m;
+                d_in_E[i] = m;
                 break;
             }
             if (d_in_V[m] < d_in_E[i]) {
