@@ -18,6 +18,9 @@ def powerlaw_cluster(n=10000, m=5, p=0.8, seed=1234):
 def real_graph(f='/home/styagi/com-youtube.ungraph.txt'):
     return nx.read_adjlist(f)
 
+def amazon_graph(f='/home/styagi/com-amazon.ungraph.txt'):
+    return nx.read_adjlist(f)
+
 def connected_components(G, device='cpu'):
     strt_time = time.time()
     if device == 'cpu':
@@ -53,7 +56,8 @@ def betweenness_centrality(G, device='cpu'):
 if __name__ == '__main__':
     logging.basicConfig(filename='networkx_cugraph_perf-'+str(random.randint(10, 999))+'.log', level=logging.INFO)
 
-    G = real_graph()
+    # G = real_graph()
+    G = amazon_graph()
     t = connected_components(G, device='gpu')
     logging.info(f'SOC_LiveJournal graph connected_components CUDA {t} seconds')
     t = triangles(G, device='gpu')
