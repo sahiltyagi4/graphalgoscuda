@@ -138,10 +138,10 @@ __global__ void update_results(int N, int *d_in_V, int *d_in_I, int *d_in_E, int
 
 int main(){
     std::vector<int> V, I, E, W;
-    load_data("/home/styagi/data/rand_1000.gr_W.csv", V);
-    load_data("/home/styagi/data/rand_1000.gr_W.csv", I);
-    load_data("/home/styagi/data/rand_1000.gr_W.csv", E);
-    load_data("/home/styagi/data/rand_1000.gr_W.csv", W);
+    load_data("/home/styagi/rand_1000.gr_W.csv", V);
+    load_data("/home/styagi/rand_1000.gr_W.csv", I);
+    load_data("/home/styagi/rand_1000.gr_W.csv", E);
+    load_data("/home/styagi/rand_1000.gr_W.csv", W);
 
 //    load_data("/home/styagi/USA-road-d.NY.gr_W.csv", V);
 //    load_data("/home/styagi/USA-road-d.NY.gr_W.csv", I);
