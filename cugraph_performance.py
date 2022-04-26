@@ -21,6 +21,9 @@ def real_graph(f='/home/styagi/com-youtube.ungraph.txt'):
 def dblp_graph(f='/home/styagi/com-dblp.all.cmty.txt'):
     return nx.read_adjlist(f)
 
+def EUEmail_graphs(f='/home/styagi/email-Eu-core.txt'):
+    return nx.read_adjlist(f)
+
 def connected_components(G, device='cpu'):
     strt_time = time.time()
     if device == 'cpu':
@@ -57,15 +60,16 @@ if __name__ == '__main__':
     logging.basicConfig(filename='networkx_cugraph_perf-'+str(random.randint(10, 999))+'.log', level=logging.INFO)
 
     # G = real_graph()
-    G = dblp_graph()
+    # G = dblp_graph()
+    G = EUEmail_graphs()
     t = connected_components(G, device='gpu')
-    logging.info(f'DBLP graph connected_components CUDA {t} seconds')
+    logging.info(f'EU_Email graph connected_components CUDA {t} seconds')
     t = triangles(G, device='gpu')
-    logging.info(f'DBLP graph clustering CUDA {t} seconds')
+    logging.info(f'EU_Email graph clustering CUDA {t} seconds')
     t = pagerank(G, device='gpu')
-    logging.info(f'DBLP graph Pagerank CUDA {t} seconds')
+    logging.info(f'EU_Email graph Pagerank CUDA {t} seconds')
     t = betweenness_centrality(G, device='gpu')
-    logging.info(f'DBLP graph Betweenness_centrality CUDA {t} seconds')
+    logging.info(f'EU_Email graph Betweenness_centrality CUDA {t} seconds')
     logging.info('################################################')
 
 
