@@ -154,7 +154,7 @@ int main(){
 
     update_INDEX_edgesGridStride<<<init_blocks, threads_per_block>>>(E.size(), d_in_V, d_in_E, 0, V.size()-1);
     for (int i=0; i<V.size(); ++i){
-        resetGridStride()<<<init_blocks, threads_per_block>>>(N, max_value, d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_Di);
+        resetGridStride<<<init_blocks, threads_per_block>>>(N, max_value, d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_Di);
         update_distanceGridStride<<<blocks, threads_per_block>>>(V.size(), d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_Di);
     }
     update_resultsGridStride<<<blocks, threads_per_block>>>(V.size(), d_in_V, d_in_I, d_in_E, d_in_W, d_out_D, d_out_P);
