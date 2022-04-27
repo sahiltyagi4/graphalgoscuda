@@ -29,7 +29,7 @@ void load_data(const char *f, std::vector<int> &vec){
 __global__ void initialize(int N, int *p, int val, bool src, int source, int sourceVal){
     int ix = threadIdx.x + blockDim.x * blockIdx.x;
     int stride = gridDim.x * blockDim.x;
-    cout << "strides are:" << stride << endl;
+    //cout << "strides are:" << stride << endl;
     for (int i=ix; i<N; i+= stride){
         p[i] = val;
         if(src){
