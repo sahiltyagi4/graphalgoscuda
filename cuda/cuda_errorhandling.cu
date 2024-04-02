@@ -30,10 +30,10 @@ int main(){
 
     sync_err = cudaGetLastError();
     async_err = cudaDeviceSynchronize();
-    if (sync_err != cudaSuccess){ printf('got error %s\n', cudaGetErrorString(sync_err));}
-    if (async_err != cudaSuccess){ printf('got error %s\n', cudaGetErrorString(async_err));}
+    if (sync_err != cudaSuccess){ printf("got error %s\n", cudaGetErrorString(sync_err));}
+    if (async_err != cudaSuccess){ printf("got error %s\n", cudaGetErrorString(async_err));}
 
     bool is_true = verify_doubling(a, N);
-    print(is_true);
+    printf("%d\n", is_true);
     cudaFree(a);
 }

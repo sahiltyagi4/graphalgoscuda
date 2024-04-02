@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include "sys/time.h"
 
 bool verify_op(int *a, int N){
     for (int i=0; i<N; i++){
@@ -30,12 +31,6 @@ __global__ void on_gpu(int *a, int N){
     }
 }
 
-// for testing increment on cpu
-//int main(){
-//    int N = 128 * 512;
-//    on_cpu(N);
-//}
-
 //gpu increment
 int main() {
     size_t num_blocks = 128;
@@ -44,9 +39,15 @@ int main() {
     size_t size = N * sizeof(int);
     int *a;
     cudaMallocManaged(&a, size);
+    struct timeval tval_before, tval_after, tval_result;
+    gettimeofday(&tval_before, NULL);
+    //on_cpu(N);
     on_gpu<<<num_blocks, num_threads_perblock>>>(a, N);
     cudaDeviceSynchronize();
-    bool did_increment = verify_op(a, N);
-    printf("were array elements increment on GPU %s\n", did_increment);
-    cudaFree();
+    gettimeofday(&tval_after, NULL);
+    timersub(&tval_after, &tval_before, &tval_result);
+    printf("Time elapsed: %ld.%06ld seconds\n", (long int)tval_result.tv_sec, (long int)tval_result.tv_usec);
+    cudaFree(a);
+    ////bool did_increment = verify_op(a, N);
+    ////printf("did array elements increment on GPU %s\n", did_increment);
 }
